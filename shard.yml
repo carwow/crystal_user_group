@@ -1,7 +1,7 @@
 name: clug
 version: 0.1.0
 
-authors:
-  - Akash B <akash@carwow.co.uk>
-
-license: MIT
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master	
