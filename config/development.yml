@@ -1,0 +1,6 @@
+database:
+  name: lcrug_development
+  user: clug
+  password: carwow
+  host: localhost
+  shell: ENV["SHELL"]
