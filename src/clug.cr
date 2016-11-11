@@ -8,7 +8,8 @@ Kemal.config.port = ENV["PORT"].to_i
 
 
 # database
-
+require "pg"
+DB = PG.connect("postgres://clug:carwow@localhost/lcrug_development")
 
 # controllers
 require "./controllers/base_controller.cr"
