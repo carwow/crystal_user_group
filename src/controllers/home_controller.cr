@@ -1,7 +1,7 @@
 class HomeController < BaseController
 	
-  get "/kemal" do
-	 render_template("index", "layout_two")
+  get "/" do
+    render_template("index", "layout_two")
   end
 
 end
