@@ -1,0 +1,1 @@
+INSERT INTO meetups VALUES ('Inagural LCrUG Meetup', 'please attend', to_date('2017-01-14', 'YYYY-MM-DD'), null)

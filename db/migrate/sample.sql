@@ -1,1 +1,0 @@
-INSERT INTO test_2 VALUES('via migration');

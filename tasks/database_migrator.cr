@@ -1,33 +1,49 @@
+require "http/server"
+require "kemal"
 require "pg"
-require "yaml"
 
 class DatabaseMigrator
 
   def initialize
-    @db_config = YAML.parse(File.read("./config/development.yml"))["database"].as(YAML::Any)
+    ENV["KEMAL_ENV"] = "development" unless ENV.has_key?("KEMAL_ENV")
+    set_dev_properties if ENV["KEMAL_ENV"] == "development"
+  end
+
+  def set_dev_properties
+    ENV["db_name"] = "lcrug_development"
+    ENV["db_user"] = "clug"
+    ENV["db_password"] = "carwow"
+    ENV["db_host"] = "localhost"
   end
 
   def connection
-    connection_string = "postgres://#{@db_config["user"]}:#{@db_config["password"]}@#{@db_config["host"]}/#{@db_config["name"]}"
-    puts connection_string
+    connection_string = "postgres://#{ENV["db_user"]}:#{ENV["db_password"]}@#{ENV["db_host"]}/#{ENV["db_name"]}"
     if @db.nil?
       @db = PG.connect(connection_string)
     end
     @db.as(PG::Connection)
   end
 	
-  def run    
-    migrations = Dir.foreach("./db/migrate") do |filename|
+  def run
+    migrations = Dir.entries("./db/migrate").select!{|file| file.ends_with?(".sql")}.as(Array(String))
+
+    migrations = migrations.sort do |first, second|      
+      first.split('_').first.to_i <=> second.split('_').first.to_i
+    end
+
+    migrations.each do |filename|
       next unless filename.ends_with?(".sql")
       run_migration(filename)
     end
   end
 
   def run_migration(filename)
-    return if migration_already_run?(filename)
+    return if migration_already_run?(filename)    
     sql = File.read("./db/migrate/#{filename}")
     connection.exec(sql)
-    connection.exec("INSERT INTO migrations VALUES('#{filename}');")
+
+    connection.exec("INSERT INTO migrations VALUES('#{filename}', current_timestamp);")
+    puts "finished running migration: #{filename}"
   end
 
   def migration_already_run?(filename)
@@ -40,7 +56,9 @@ class DatabaseMigrator
   end
 
   def create
-    system("createdb #{@db_config["name"]} -O #{@db_config["user"]}")
-    connection.exec("CREATE TABLE migrations(name varchar(255));")
+    puts "creating database..."
+    system("createdb #{ENV["db_name"]} -O #{ENV["db_user"]}")
+    connection.exec("CREATE TABLE migrations(name varchar(255), migrated_on timestamp);")
+    puts "...done!"
   end 
 end

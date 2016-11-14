@@ -1,10 +1,7 @@
 require "./clug/*"
 require "http/server"
-require "option_parser"
 require "kemal"
-require "yaml"
 require "pg"
-require "ecr/macros"
 require "../config/app_config"
 
 
