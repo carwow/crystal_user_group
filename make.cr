@@ -1,3 +1,5 @@
+#!/usr/bin/env/crystal
+
 require "./tasks/database_migrator"
 require "kemal"
 
