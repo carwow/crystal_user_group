@@ -2,6 +2,7 @@ require "./clug/*"
 require "http/server"
 require "kemal"
 require "pg"
+require "../tasks/database_migrator"
 require "../config/app_config"
 
 
@@ -20,4 +21,7 @@ require "./controllers/home_controller.cr"
 require "./models/base_model.cr"
 require "./models/meetup.cr"
 
+
+DatabaseMigrator.new.create
+DatabaseMigrator.new.migrate
 Kemal.run

@@ -24,7 +24,7 @@ class DatabaseMigrator
     @db.as(PG::Connection)
   end
 	
-  def run
+  def migrate
     migrations = Dir.entries("./db/migrate").select!{|file| file.ends_with?(".sql")}.as(Array(String))
 
     migrations = migrations.sort do |first, second|      
@@ -51,14 +51,10 @@ class DatabaseMigrator
     migration.rows.any?
   end
 
-  def generate_migration(filename)
-    File.new("./db/migrate/#{Time.now.to_s}_#{filename}.sql")
-  end
-
   def create
     puts "creating database..."
     system("createdb #{ENV["db_name"]} -O #{ENV["db_user"]}")
-    connection.exec("CREATE TABLE migrations(name varchar(255), migrated_on timestamp);")
+    connection.exec("CREATE TABLE IF NOT EXISTS migrations(name varchar(255), migrated_on timestamp);")
     puts "...done!"
   end 
 end
