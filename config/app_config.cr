@@ -3,8 +3,8 @@ class AppConfig
   def initialize
     io = MemoryIO.new
 
-    # ENV["ENV"] = "development" unless ENV.has_key?("ENV")
-    ECR.embed("./config/properties.yml.ecr", io)
+    ENV["KEMAL_ENV"] = "development" unless ENV.has_key?("KEMAL_ENV")
+    ECR.embed("./config/#{ENV["KEMAL_ENV"].to_s}.yml.ecr", io)
     @config = YAML.parse(io.to_s)
     io.close
   end
