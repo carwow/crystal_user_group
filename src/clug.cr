@@ -5,6 +5,7 @@ require "kemal"
 require "yaml"
 require "pg"
 require "ecr/macros"
+require "../config/app_config"
 
 
 ENV["PORT"] = "3333" unless ENV.has_key?("PORT")
@@ -12,21 +13,14 @@ Kemal.config.port = ENV["PORT"].to_i
 
 
 # database
-# db = YAML.parse(File.read("./config/development.yml"))["database"]
-
-# class AppProperties
-#   ECR.def_to_s "./config/development.yml.ecr"
-# end
-
-
-io = MemoryIO.new
-ECR.embed "./config/development.yml.ecr", io
-puts io.to_s
-
-DB = PG.connect("postgres://clug:carwow@localhost/lcrug_development")                
+DB = PG.connect(AppConfig.new.db_connection_string)
 
 # controllers
 require "./controllers/base_controller.cr"
 require "./controllers/home_controller.cr"
+
+#models
+require "./models/base_model.cr"
+require "./models/meetup.cr"
 
 Kemal.run
