@@ -1,6 +1,6 @@
 class Meetup < BaseModel
 
   def self.table_name    
-    "test_2"
+    "meetups"
   end
 end
