@@ -7,27 +7,23 @@
         <p>**Maybe not official, but currently the only london crystal user group!</p>
         <p>The next/first LCRUG meet up will be:</p>
         <div class="details_banner grey lighten-3">
-          <table>
-        <thead>
-          <tr>
-              <th data-field="id">Title</th>
-              <th data-field="name">Description</th>
-              <th data-field="price">Date</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td><%= result["title"]%></td>
-            <td><%= result["description"]%></td>
-            <td><%= result["event_date"].as(Time).to_s("%d %B %Y") %></td>
-            
-          </tr>
-        </tbody>
-      </table>
-                
-      </div>
-
+          <table class="responsive-table">
+            <thead>
+              <tr>
+                <th data-field="id">Title</th>
+                <th data-field="name">Description</th>
+                <th data-field="price">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= result["title"]%></td>
+                <td><%= result["description"]%></td>
+                <td><%= result["event_date"].as(Time).to_s("%d %B %Y") %></td>        
+              </tr>
+            </tbody>
+          </table>                
+        </div>
       </div>
     </div>
   </div>
