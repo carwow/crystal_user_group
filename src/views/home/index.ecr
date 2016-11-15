@@ -6,7 +6,28 @@
         <h5 class="header col s12 light purple-text text-lighten-2">The official** website for the London Crystal User Group</h5>
         <p>**Maybe not official, but currently the only london crystal user group!</p>
         <p>The next/first LCRUG meet up will be:</p>
-        <%= result.to_s%>
+        <div class="details_banner grey lighten-3">
+          <table>
+        <thead>
+          <tr>
+              <th data-field="id">Title</th>
+              <th data-field="name">Description</th>
+              <th data-field="price">Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><%= result["title"]%></td>
+            <td><%= result["description"]%></td>
+            <td><%= result["event_date"].as(Time).to_s("%d %B %Y") %></td>
+            
+          </tr>
+        </tbody>
+      </table>
+                
+      </div>
+
       </div>
     </div>
   </div>
@@ -22,27 +43,26 @@
             <h2 class="center purple-text text-lighten-2"><i class="material-icons">info</i></h2>
             <h5 class="center">Why LCRUG?</h5>
 
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+            <p class="light">We want Crystal to gain the momentum it deserves. Recently at Ruby conferences and talks Crystal has become a subject rather than a passing remark and we want to build a real Crystal community and take a front seat in the growing community.</p>
           </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center purple-text text-lighten-2"><i class="material-icons">note_add</i></h2>
-            <h5 class="center">How to get involved?</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
-        </div>
-
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center purple-text text-lighten-2"><i class="material-icons">navigation</i></h2>
             <h5 class="center">Where do we meet?</h5>
 
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+            <p class="light">Carwow, floor 6, New Penderal House, 283-288 High Holborn, WC1V 7HP</p>
           </div>
         </div>
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center purple-text text-lighten-2"><i class="material-icons">note_add</i></h2>
+            <h5 class="center">How to get involved?</h5>
+
+            <p class="light">We're looking for people to give a talk anything Crystal related. Want to add to our site? make a pull request. We welcome any support.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>

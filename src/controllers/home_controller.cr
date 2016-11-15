@@ -1,7 +1,7 @@
 class HomeController < BaseController
 	
   get "/" do
-    result = Meetup.all
+    result = Meetup.all.first
     # result = "todo"
 
     render_template("index", "layout")
