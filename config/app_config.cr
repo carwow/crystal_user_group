@@ -15,16 +15,24 @@ class AppConfig
     ENV["db_host"] = "localhost"
   end
 
-  # def initialize
-  #   io = MemoryIO.new
-  #   ENV["KEMAL_ENV"] = "development" unless ENV.has_key?("KEMAL_ENV")
-  #   ECR.embed("./config/#{ENV["KEMAL_ENV"].to_s}.yml.ecr", io)
-  #   @config = YAML.parse(io.to_s)    
-  #   io.close
-  # end
+  def db_user
+    ENV["db_user"]
+  end
 
-  def db_connection_string
-    "postgres://#{ENV["db_user"]}:#{ENV["db_password"]}@#{ENV["db_host"]}/#{ENV["db_name"]}"
+  def db_password
+    ENV["db_password"]
+  end
+
+  def db_host
+    ENV["db_host"]
+  end
+
+  def db_name
+    ENV["db_name"]
+  end
+
+    def db_connection_string
+    "postgres://#{db_user}:#{db_password}@#{db_host}/#{db_name}"
   end
 
 end

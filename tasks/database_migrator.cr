@@ -1,12 +1,14 @@
 require "http/server"
 require "kemal"
 require "pg"
+require "../config/app_config"
 
 class DatabaseMigrator
 
   def initialize
     ENV["KEMAL_ENV"] = "development" unless ENV.has_key?("KEMAL_ENV")
     set_dev_properties if ENV["KEMAL_ENV"] == "development"
+    @config = AppConfig.new
   end
 
   def set_dev_properties
@@ -17,7 +19,7 @@ class DatabaseMigrator
   end
 
   def connection
-    connection_string = "postgres://#{ENV["db_user"]}:#{ENV["db_password"]}@#{ENV["db_host"]}/#{ENV["db_name"]}"
+    connection_string = @config.db_connection_string
     if @db.nil?
       @db = PG.connect(connection_string)
     end
@@ -53,7 +55,7 @@ class DatabaseMigrator
 
   def create
     puts "creating database..."
-    system("createdb #{ENV["db_name"]} -O #{ENV["db_user"]}")
+    system("createdb #{@config.db_name} -O #{@config.db_user}")
     connection.exec("CREATE TABLE IF NOT EXISTS migrations(name varchar(255), migrated_on timestamp);")
     puts "...done!"
   end 
