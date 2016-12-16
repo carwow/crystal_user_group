@@ -13,14 +13,16 @@
               <tr>
                 <th data-field="id">Title</th>
                 <th data-field="name">Description</th>
-                <th data-field="price">Date</th>
+                <th data-field="date">Date</th>
+                <th data-field="url">More Info</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><%= result["title"]%></td>
                 <td><%= result["description"]%></td>
-                <td><%= result["event_date"].as(Time).to_s("%d %B %Y") %></td>        
+                <td><%= result["event_date"].as(Time).to_s("%d %B %Y") %></td>
+                <td><%= result["url"]%></td>
               </tr>
             </tbody>
           </table>                
