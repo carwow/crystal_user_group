@@ -11,7 +11,7 @@ Kemal.config.port = ENV["PORT"].to_i
 
 
 # database
-DB = PG.connect(AppConfig.new.db_connection_string)
+DATABASE = PG.connect(AppConfig.new.db_connection_string)
 
 # controllers
 require "./controllers/base_controller.cr"
